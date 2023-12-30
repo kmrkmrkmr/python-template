@@ -41,6 +41,7 @@ plt.ylabel(r'\textbf{Displacement (m)}', labelpad=0)  # Set labelpad to 0
 legend = plt.legend(loc='upper left', bbox_to_anchor=(1.02, 1), 
                     frameon=True, fancybox=False, edgecolor='black', 
                     handlelength=1.8, handletextpad=0.4)
+legend.get_frame().set_alpha(1)
 
 # Get the current axis
 ax = plt.gca()
@@ -53,7 +54,7 @@ ax.tick_params(axis='both', which='both', direction='in',
 # plt.xlim(0, 10)
 
 # # Set the y-axis limits explicitly
-# plt.ylim(0, 0.2)
+# plt.ylim(0, 0.1)
 
 # Set font for tick labels
 # ax.set_xticks(ax.get_xticks())
