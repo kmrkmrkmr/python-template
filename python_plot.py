@@ -7,10 +7,16 @@ rc('text.latex', preamble=r'''\usepackage{amsmath} \usepackage{amsfonts}
    \usepackage{amssymb} \usepackage{bm}''')
 rc('font',**{'family':'serif','serif':['Times'],'size':10})
 
-# Generate example data
-x = np.linspace(0, 10, 100)
-y1 = np.sin(x)
-y2 = np.cos(x)
+# import txt data
+file_path = 'point1.txt'
+data_txt = np.loadtxt(file_path, delimiter='\t', skiprows=0)
+
+# import csv data
+file_path = 'time.csv'
+data_csv1 = np.genfromtxt(file_path, delimiter=',', skip_header=0)
+file_path = 'generalized_node_position.csv'
+data_csv2 = np.genfromtxt(file_path, delimiter=',', skip_header=0)
+
 
 # Set the size in centimeters
 fig_width_cm, fig_height_cm = 7.32, 5.49
@@ -24,12 +30,12 @@ fig_height = fig_height_cm * cm_to_inches
 plt.figure(figsize=(fig_width, fig_height))
 
 # Plot the data with labeled axes
-plt.plot(x, y1, label=r'$\sin x$', color='blue', linestyle='-', linewidth=2)
-plt.plot(x, y2, label=r'$\cos x$', color='red', linestyle='--', linewidth=2)
+plt.plot(data_txt[:,0], data_txt[:,1], label=r'txt data', color='blue', linestyle='-', linewidth=2)
+plt.plot(data_csv1, data_csv2[:,0], label=r'csv data', color='red', linestyle='--', linewidth=2)
 
 # Add labels with custom font and adjust labelpad
-plt.xlabel(r'\textbf{X-axis (units)}', labelpad=0)  # Set labelpad to 0
-plt.ylabel(r'\textbf{Y-axis (units)}', labelpad=0)  # Set labelpad to 0
+plt.xlabel(r'\textbf{Time (s)}', labelpad=0)  # Set labelpad to 0
+plt.ylabel(r'\textbf{Displacement (m)}', labelpad=0)  # Set labelpad to 0
 
 # Add a legend with custom font and a sharp black box
 legend = plt.legend(loc='upper left', bbox_to_anchor=(1.02, 1), 
@@ -43,18 +49,24 @@ ax = plt.gca()
 ax.tick_params(axis='both', which='both', direction='in', 
                bottom=True, top=True, left=True, right=True)
 
-# Set font for tick labels
-ax.set_xticks(ax.get_xticks())
-ax.set_xticklabels(ax.get_xticks(), fontsize=10, fontfamily='Times New Roman')
+# # Set the axis range
+# plt.xlim(0, 10)
 
-ax.set_yticks(ax.get_yticks())
-ax.set_yticklabels(ax.get_yticks(), fontsize=10, fontfamily='Times New Roman')
+# # Set the y-axis limits explicitly
+# plt.ylim(0, 0.2)
+
+# Set font for tick labels
+# ax.set_xticks(ax.get_xticks())
+# ax.set_xticklabels(ax.get_xticks(), fontsize=10, fontfamily='Times New Roman')
+
+# ax.set_yticks(ax.get_yticks())
+# ax.set_yticklabels(ax.get_yticks(), fontsize=10, fontfamily='Times New Roman')
 
 # Set the axis range
 plt.xlim(0, 10)
 
 # Set the y-axis limits explicitly
-plt.ylim(-1.5, 1.5)
+plt.ylim(0, 0.1)
 
 # Add dashed grid
 ax.grid(linestyle='--', linewidth=0.5)
